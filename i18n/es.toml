@@ -25,5 +25,23 @@ other = "Más"
 [Expand-title]
 other = "Expandir..."
 
-[BinaryPrefix-kilobyte]
-other = "kb"
+[Byte-symbol]
+other = "B"
+
+[Kilobyte-symbol]
+other = "KB"
+
+[Megabyte-symbol]
+other = "MB"
+
+[note]
+other = "Nota"
+
+[info]
+other = "Información"
+
+[tip]
+other = "Consejo"
+
+[warning]
+other = "Aviso"

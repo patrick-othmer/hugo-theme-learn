@@ -1,17 +1,19 @@
-{{ $_hugo_config := `{ "version": 1 }` }}
-<div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
-        <span>
-        {{$expandMessage := T "Expand-title"}}
-    	{{ if .IsNamedParams }}
-    	{{.Get "default" | default $expandMessage}}
-    	{{else}}
-    	{{.Get 0 | default $expandMessage}}
-    	{{end}}
-    	</span>
-    </div>
-    <div class="expand-content" style="display: none;">
-        {{.Inner | safeHTML}}
+{{- $_hugo_config := `{ "version": 1 }` }}
+{{- $title := .Get 0 | default (T "Expand-title") }}
+{{- $content := .Inner | safeHTML }}
+{{- $expanded := eq (.Get 1) "true" }}
+<div class="expand
+    {{- if $expanded }} expand-expanded{{ end -}}
+">
+    {{/* things are getting complicated when search tries to open the expand box while jquery sets the display CSS on the element */}}
+    <a class="expand-label" onclick="$t=$(this); if($t.parent('.expand-expanded.expand-marked').length){ $t.next().css('display','none') }else if($t.parent('.expand-marked').length){ $t.next().css('display','block') }else{ $t.next('.expand-content').slideToggle(100); } $t.parent().toggleClass('expand-expanded');">
+        <i class="fas fa-chevron-down"></i>
+        <i class="fas fa-chevron-right"></i>
+        {{ $title }}
+    </a>
+    <div class="expand-content" style="display:
+        {{- if $expanded }} block{{ else }} none{{ end -}}
+    ;">
+        {{ $content }}
     </div>
 </div>
