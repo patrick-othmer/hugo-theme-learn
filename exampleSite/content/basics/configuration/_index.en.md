@@ -1,17 +1,20 @@
----
-date: 2016-04-09T16:50:16+02:00
-title: Configuration
-weight: 20
----
++++
+title = "Configuration"
+weight = 20
++++
 
 ## Global site parameters
 
-On top of [Hugo global configuration](https://gohugo.io/overview/configuration/), **Hugo-theme-learn** lets you define the following parameters in your `config.toml` (here, values are default).
+On top of [Hugo global configuration](https://gohugo.io/overview/configuration/), the Relearn theme lets you define the following parameters in your `config.toml` (here, values are default).
 
 Note that some of these parameters are explained in details in other sections of this documentation.
 
 ```toml
 [params]
+  # This controls whether submenus will be expanded (true), or collapsed (false) in the
+  # menu; if no setting is given, the first menu level is set to false, all others to true;
+  # this can be overridden in the pages frontmatter
+  alwaysopen = true
   # Prefix URL to edit current page. Will display an "Edit this page" button on top right hand corner of every page.
   # Useful to give opportunity to people to create merge request for your doc.
   # See the config.toml file from this documentation site to have an example.
@@ -24,6 +27,12 @@ Note that some of these parameters are explained in details in other sections of
   showVisitedLinks = false
   # Disable search function. It will hide search bar
   disableSearch = false
+  # Disable search in hidden pages, otherwise they will be shown in search box
+  disableSearchHiddenPages = false
+  # Disables hidden pages from showing up in the sitemap and on Google (et all), otherwise they may be indexed by search engines
+  disableSeoHiddenPages = false
+  # Disables hidden pages from showing up on the tags page although the tag term will be displayed even if all pages are hidden
+  disableTagHiddenPages = false
   # Javascript and CSS cache are automatically busted when new version of site is generated.
   # Set this to true to disable this behavior (some proxies don't handle well this optimization)
   disableAssetsBusting = false
@@ -38,13 +47,16 @@ Note that some of these parameters are explained in details in other sections of
   disableLanguageSwitchingButton = false
   # Hide breadcrumbs in the header and only show the current page title
   disableBreadcrumb = true
-  # If set to true, prevents Hugo from including the mermaid module if not needed (will reduce load times and traffic)
+  # If set to true, prevents Hugo from including the Mermaid module if not needed (will reduce load times and traffic)
   disableMermaid = false
-  # Specifies the remote location of the mermaid js
+  # Specifies the remote location of the Mermaid js
   customMermaidURL = "https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"
+  # Initialization parameter for Mermaid, see Mermaid documentation
+  mermaidInitialize = "{ \"theme\": \"default\" }"
   # Hide Next and Previous page buttons normally displayed full height beside content
   disableNextPrev = true
-  # Order sections in menu by "weight" or "title". Default to "weight"
+  # Order sections in menu by "weight" or "title". Default to "weight";
+  # this can be overridden in the pages frontmatter
   ordersectionsby = "weight"
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = ""
@@ -63,25 +75,25 @@ If not already present, add the follow lines in the same `config.toml` file.
 home = [ "HTML", "RSS", "JSON"]
 ```
 
-Learn theme uses the last improvement available in hugo version 20+ to generate a json index file ready to be consumed by lunr.js javascript search engine.
+Relearn theme uses the last improvement available in hugo version 20+ to generate a json index file ready to be consumed by lunr.js javascript search engine.
 
 > Hugo generate lunrjs index.json at the root of public folder.
 > When you build the site with `hugo server`, hugo generates it internally and of course it doesn’t show up in the filesystem
 
 ## Mermaid
 
-The mermaid configuration parameters can also be set on a specific page. In this case, the global parameter would be overwritten by the local one.
+The Mermaid configuration parameters can also be set on a specific page. In this case, the global parameter would be overwritten by the local one. See [Mermaid]({{< relref "shortcodes/mermaid.md" >}}) for additional documentation.
 
 > Example:
 >
-> Mermaid is globally disabled. By default it won't be loaded by any page.  
-> On page "Architecture" you need a class diagram. You can set the mermaid parameters locally to only load mermaid on this page (not on the others).
+> Mermaid is globally disabled. By default it won't be loaded by any page.
+> On page "Architecture" you need a class diagram. You can set the Mermaid parameters locally to only load mermaid on this page (not on the others).
 
-You also can disable mermaid for specific pages while globally enabled.
+You also can disable Mermaid for specific pages while globally enabled.
 
 ## Home Button Configuration
 
-If the `disableLandingPage` option is set to `false`, an Home button will appear
+If the `disableLandingPageButton` option is set to `false`, a Home button will appear
 on the left menu. It is an alternative for clicking on the logo. To edit the
 appearance, you will have to configure two parameters for the defined languages:
 
@@ -90,12 +102,12 @@ appearance, you will have to configure two parameters for the defined languages:
 [Lanugages.en]
 ...
 landingPageURL = "/en"
-landingPageName = "<i class='fas fa-home'></i> Redirect to Home"
+landingPageName = "<i class='fas fa-home'></i> Home"
 ...
-[Lanugages.fr]
+[Lanugages.pir]
 ...
-landingPageURL = "/fr"
-landingPageName = "<i class='fas fa-home'></i> Accueil"
+landingPageURL = "/pir"
+landingPageName = "<i class='fas fa-home'></i> Arrr! Homme"
 ...
 ```
 
@@ -107,6 +119,6 @@ landingPageURL = "/"
 landingPageName = "<i class='fas fa-home'></i> Home"
 ```
 
-The home button is going to looks like this:
+The home button is going to look like this:
 
-![Default Home Button](/en/basics/configuration/images/home_button_defaults.jpg?width=100%)
+![Default Home Button](/basics/configuration/images/home_button_defaults.png?width=100%)

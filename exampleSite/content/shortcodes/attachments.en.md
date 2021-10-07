@@ -1,7 +1,7 @@
----
-title: Attachments
-description : "The Attachments shortcode displays a list of files attached to a page."
----
++++
+description = "The Attachments shortcode displays a list of files attached to a page"
+title = "Attachments"
++++
 
 The Attachments shortcode displays a list of files attached to a page.
 
@@ -12,7 +12,7 @@ The Attachments shortcode displays a list of files attached to a page.
 The shortcurt lists files found in a **specific folder**.
 Currently, it support two implementations for pages
 
-1. If your page is a markdown file, attachements must be placed in a **folder** named like your page and ending with **.files**.
+1. If your page is a Markdown file, attachements must be placed in a **folder** named like your page and ending with **.files**.
 
     > * content
     >   * _index.md
@@ -38,7 +38,8 @@ That's all!
 | Parameter | Default | Description |
 |:--|:--|:--|
 | title | "Attachments" | List's title  |
-| style | "" | Choose between "orange", "grey", "blue" and "green" for nice style |
+| sort  | "asc" | Sorting the output in `asc`ending or `desc`ending order |
+| style | "" | Choose between `orange`, `grey`, `blue` and `green` for nice style |
 | pattern | ".*" | A regular expressions, used to filter the attachments by file name. <br/><br/>The **pattern** parameter value must be [regular expressions](https://en.wikipedia.org/wiki/Regular_expression).
 
 For example:
@@ -50,8 +51,9 @@ For example:
 
 #### List of attachments ending in pdf or mp4
 
-
-    {{%/*attachments title="Related files" pattern=".*(pdf|mp4)"/*/%}}
+````go
+{{%/*attachments title="Related files" pattern=".*(pdf|mp4)"/*/%}}
+````
 
 renders as
 
@@ -59,26 +61,33 @@ renders as
 
 #### Colored styled box
 
-    {{%/*attachments style="orange" /*/%}}
+````go
+{{%/*attachments style="orange" /*/%}}
+````
 
 renders as
 
 {{% attachments style="orange" /%}}
 
+````go
+{{%/*attachments style="grey" /*/%}}
+````
 
-    {{%/*attachments style="grey" /*/%}}
-
-renders as 
+renders as
 
 {{% attachments style="grey" /%}}
 
-    {{%/*attachments style="blue" /*/%}}
+````go
+{{%/*attachments style="blue" /*/%}}
+````
 
 renders as
 
 {{% attachments style="blue" /%}}
-    
-    {{%/*attachments style="green" /*/%}}
+
+````go
+{{%/*attachments style="green" /*/%}}
+````
 
 renders as
 

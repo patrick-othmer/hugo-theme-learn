@@ -1,13 +1,7 @@
----
-date: 2016-04-09T16:50:16+02:00
-title: Markdown syntax
-weight: 15
----
-
-{{% notice note %}}
-This page is a shameful copy of the great [Grav original page](http://learn.getgrav.org/content/markdown).
-Only difference is information about image customization ([resizing]({{< relref "#resizing-image" >}}), [add CSS classes]({{< relref "#add-css-classes" >}})...)
-{{% /notice%}}
++++
+title = "Markdown syntax"
+weight = 15
++++
 
 Let's face it: Writing content for the Web is tiresome. WYSIWYG editors help alleviate this task, but they generally result in horrible code, or worse yet, ugly web pages.
 
@@ -16,7 +10,7 @@ Let's face it: Writing content for the Web is tiresome. WYSIWYG editors help all
 Some of the key benefits are:
 
 1. Markdown is simple to learn, with minimal extra characters so it's also quicker to write content.
-2. Less chance of errors when writing in markdown.
+2. Less chance of errors when writing in Markdown.
 3. Produces valid XHTML output.
 4. Keeps the content and the visual display separate, so you cannot mess up the look of your site.
 5. Write in any text editor or Markdown application you like.
@@ -27,12 +21,10 @@ John Gruber, the author of Markdown, puts it like this:
 > The overriding design goal for Markdown’s formatting syntax is to make it as readable as possible. The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions. While Markdown’s syntax has been influenced by several existing text-to-HTML filters, the single biggest source of inspiration for Markdown’s syntax is the format of plain text email.
 > -- John Gruber
 
-Grav ships with built-in support for [Markdown](http://daringfireball.net/projects/markdown/) and [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/). You must enable **Markdown Extra** in your `system.yaml` configuration file
-
 Without further delay, let us go over the main elements of Markdown and what the resulting HTML looks like:
 
 {{% notice info %}}
-<i class="fas fa-bookmark"></i> Bookmark this page for easy future reference!
+<i class="fas fa-bookmark"></i> Bookmark this page and the [official Commonmark reference](https://commonmark.org/help/) for easy future reference!
 {{% /notice %}}
 
 ## Headings
@@ -92,19 +84,15 @@ This is a comment
 
 ## Horizontal Rules
 
-The HTML `<hr>` element is for creating a "thematic break" between paragraph-level elements. In markdown, you can create a `<hr>` with any of the following:
-
-* `___`: three consecutive underscores
-* `---`: three consecutive dashes
-* `***`: three consecutive asterisks
+The HTML `<hr>` element is for creating a "thematic break" between paragraph-level elements. In Markdown, you can create a `<hr>` with `---` - three consecutive dashes
 
 renders to:
 
-___
+---
 
-## Body Copy
+## Paragraphs
 
-Body copy written as normal, plain text will be wrapped with `<p></p>` tags in the rendered HTML.
+Any text not starting with a special sign is written as normal, plain text and will be wrapped within `<p></p>` tags in the rendered HTML.
 
 So this body copy:
 
@@ -118,7 +106,7 @@ renders to this HTML:
 <p>Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et legere ocurreret pri, animal tacimates complectitur ad cum. Cu eum inermis inimicus efficiendi. Labore officiis his ex, soluta officiis concludaturque ei qui, vide sensibus vim ad.</p>
 ```
 
-## Emphasis
+## Text Markers
 
 ### Bold
 
@@ -221,12 +209,6 @@ Renders to:
 > > Sed adipiscing elit vitae augue consectetur a gravida nunc vehicula. Donec auctor odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac eu diam.
 >
 > Mauris sit amet ligula egestas, feugiat metus tincidunt, luctus libero. Donec congue finibus tempor. Vestibulum aliquet sollicitudin erat, ut aliquet purus posuere luctus.
-
-## Notices
-
-{{% notice note %}}
-The old mechanism for notices overriding the block quote syntax (`>>>`) has been deprecated.  Notices are now handled via a dedicated plugin called [Markdown Notices](https://github.com/getgrav/grav-plugin-markdown-notices)
-{{% /notice %}}
 
 ## Lists
 
@@ -339,7 +321,9 @@ And this HTML:
 </ol>
 ```
 
-**TIP**: If you just use `1.` for each number, Markdown will automatically number each item. For example:
+{{% notice tip %}}
+If you just use `1.` for each number, Markdown will automatically number each item. For example:
+{{% /notice %}}
 
 ```markdown
 1. Lorem ipsum dolor sit amet
@@ -370,17 +354,17 @@ Renders to:
 Wrap inline snippets of code with `` ` ``.
 
 ```markdown
-In this example, `<section></section>` should be wrapped as **code**.
+In this example, `<div></div>` should be wrapped as **code**.
 ```
 
 Renders to:
 
-In this example, `<section></section>` should be wrapped as **code**.
+In this example, `<div></div>` should be wrapped as **code**.
 
 HTML:
 
 ```html
-<p>In this example, <code>&lt;section&gt;&lt;/section&gt;</code> should be wrapped as <strong>code</strong>.</p>
+<p>In this example, <code>&lt;div&gt;&lt;/div&gt;</code> should be wrapped as <strong>code</strong>.</p>
 ```
 
 ### Indented code
@@ -420,9 +404,11 @@ HTML:
 
 Use "fences"  ```` ``` ```` to block in multiple lines of code.
 
-```markdown
+````plaintext
+```
 Sample text here...
 ```
+````
 
 HTML:
 
@@ -434,34 +420,34 @@ HTML:
 
 ### Syntax highlighting
 
-GFM, or "GitHub Flavored Markdown" also supports syntax highlighting. To activate it, simply add the file extension of the language you want to use directly after the first code "fence", ` ```js `, and syntax highlighting will automatically be applied in the rendered HTML.
+GFM, or "GitHub Flavored Markdown" also supports syntax highlighting. To activate it, usually you simply add the file extension of the language you want to use directly after the first code "fence", ` ```js `, and syntax highlighting will automatically be applied in the rendered HTML.
 
-See [Code Highlighting]({{< ref "syntaxhighlight.md" >}}) for additional documentation.
+See [Code Highlighting]({{% relref "syntaxhighlight" %}}) for additional documentation.
 
 For example, to apply syntax highlighting to JavaScript code:
 
-```plaintext
-    ```js
-    grunt.initConfig({
-      assemble: {
-        options: {
-          assets: 'docs/assets',
-          data: 'src/data/*.{json,yml}',
-          helpers: 'src/custom-helpers.js',
-          partials: ['src/partials/**/*.{hbs,md}']
-        },
-        pages: {
-          options: {
-            layout: 'default.hbs'
-          },
-          files: {
-            './': ['src/templates/pages/index.hbs']
-          }
-        }
+````plaintext
+```js
+grunt.initConfig({
+  assemble: {
+    options: {
+      assets: 'docs/assets',
+      data: 'src/data/*.{json,yml}',
+      helpers: 'src/custom-helpers.js',
+      partials: ['src/partials/**/*.{hbs,md}']
+    },
+    pages: {
+      options: {
+        layout: 'default.hbs'
+      },
+      files: {
+        './': ['src/templates/pages/index.hbs']
       }
-    };
-    ```
+    }
+  }
+};
 ```
+````
 
 Renders to:
 
@@ -545,6 +531,16 @@ Adding a colon on the right side of the dashes below any heading will right alig
 | ------:| -----------:|
 | data   | path to data files to supply the data that will be passed into templates. |
 | engine | engine to be used for processing templates. Handlebars is the default. |
+| ext    | extension to be used for dest files. |
+
+### Two tables adjacent
+
+| Option | Description |
+| ------ | ----------- |
+| ext    | extension to be used for dest files. |
+
+| Option | Description |
+| ------ | ----------- |
 | ext    | extension to be used for dest files. |
 
 ## Links
@@ -639,7 +635,11 @@ With a reference later in the document defining the URL location:
 
     [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
 
-### Resizing image
+### Further image formatting
+
+The Hugo Markdown parser supports additional non-standard functionality.
+
+#### Resizing image
 
 Add HTTP parameters `width` and/or `height` to the link image to resize the image. Values are CSS values (default is `auto`).
 
@@ -649,6 +649,8 @@ Add HTTP parameters `width` and/or `height` to the link image to resize the imag
 
 ![Minion](https://octodex.github.com/images/minion.png?width=20pc)
 
+![stormtroopocat](https://octodex.github.com/images/stormtroopocat.png?width=20pc)
+
 ```markdown
 ![Minion](https://octodex.github.com/images/minion.png?height=50px)
 ```
@@ -661,7 +663,7 @@ Add HTTP parameters `width` and/or `height` to the link image to resize the imag
 
 ![Minion](https://octodex.github.com/images/minion.png?height=50px&width=300px)
 
-### Add CSS classes
+#### Add CSS classes
 
 Add a HTTP `classes` parameter to the link image to add CSS classes. `shadow`and `border` are available but you could define other ones.
 
@@ -683,10 +685,12 @@ Add a HTTP `classes` parameter to the link image to add CSS classes. `shadow`and
 
 ![stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg?width=40pc&classes=border,shadow)
 
-### Lightbox
+#### Lightbox
 
 Add a HTTP `featherlight` parameter to the link image to disable lightbox. By default lightbox is enabled using the featherlight.js plugin. You can disable this by defining `featherlight` to `false`.
 
 ```markdown
 ![Minion](https://octodex.github.com/images/minion.png?featherlight=false)
 ```
+
+![Minion](https://octodex.github.com/images/minion.png?featherlight=false)
